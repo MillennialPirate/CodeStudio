@@ -1,14 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import Img1 from './images/img1.svg';
+import Img1 from './images/img2.svg';
 import './styles.css';
 import {auth} from '../firebase/firebase';
 import { Link } from 'react-router-dom';
-import CodeEditor from './CodeEditor';
-
-const Signup = () =>
+const Signin = () =>
 {
-    const [status, setStatus] = useState('register');
-    const [email, setEmail] = useState('');
+    const [status, setStatus] = useState('login');
+    const [email ,setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [uid, setUid] = useState('');
     const onChangeInput = (e) =>
@@ -24,33 +22,32 @@ const Signup = () =>
             setPassword(value);
         }
     }
-    const register = (e) =>
+    const login = (e) =>
     {
         e.preventDefault();
-        auth.createUserWithEmailAndPassword(email, password)
-        .then((user) => {
-            console.log(user.user.uid);
-            setUid(user.user.uid);
+        auth.signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            // Signed in
+            var user = userCredential.user.uid;
+            // ...
+            console.log(user);
+
+            setUid(user);
         })
-        .catch((err) => {
-            console.log(err);
-            switch (err.code) {
-            case "auth/email-already-in-use":
-            case "auth/invalid-email":
-                this.setState({ emailError: err.message });
-                window.alert("Try again : " + err.message);
-                break;
-            case "auth/weak-password":
-                this.setState({ passwordError: err.message });
-                window.alert("Weak password");
-                break;
-            default: console.log("Hello");
-            }
+        .catch((error) => {
+            if (
+                error.code === "auth/invalid-email" ||
+                error.code === "auth/user-not-found"
+              ) {
+                window.alert("User not found");
+              } else if (error.code === "auth/wrong-password") {
+                window.alert("Wrong password");
+              }
         });
     }
     const checkStatus = () =>
     {
-        if(status === 'register')
+        if(status === 'login')
         {
             return (
                 <div>
@@ -62,11 +59,11 @@ const Signup = () =>
                     <div class = 'container'>
                         <div style = {{paddingTop:'2%'}}></div>
                         <div class="plan-duration">
-                            <a href="#" class="plan-duration__text " style = {{textDecoration:"none", color: 'white', size: '1.2rem'}} >Sign Up</a>
+                            <Link to= '/signup'><a href="#" class="plan-duration__text " style = {{textDecoration:"none", color: 'white', size: '1.2rem'}} >Sign Up</a></Link>
                             <div class="plan-duration__toggle">
                                 <div class="plan-duration__toggle-ball"></div>
                             </div>
-                            <Link to= '/signin'><a href="#" class="plan-duration__text plan-duration--active" style = {{textDecoration:"none", color: 'white', size: '1.2rem', fontWeight:'bolder'}} >Sign In</a></Link>
+                            <a href="#" class="plan-duration__text plan-duration--active" style = {{textDecoration:"none", color: 'white', size: '1.2rem', fontWeight:'bolder'}} >Sign In</a>
                         </div>
                         <div class = 'row'>
                             <div class = 'col-lg-6 col-md-12'>
@@ -76,7 +73,7 @@ const Signup = () =>
                                 <div style={{paddingTop:'5%'}}></div>
                                 <main class="form-signin">
                                     <form onChange = {onChangeInput}>
-                                        <h1 class="h3 mb-3 fw-normal" style = {{color: 'white'}}>Welcome to InstaDoc!!</h1>
+                                        <h1 class="h3 mb-3 fw-normal" style = {{color: 'white'}}>Welcome back to InstaDoc!!</h1>
 
                                         <div class="form-floating">
                                             <input name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com" />
@@ -86,7 +83,7 @@ const Signup = () =>
                                             <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password" />
                                             <label for="floatingPassword">Password</label>
                                         </div>
-                                        <button class="btn1" type="submit" onClick = {register}>Sign Up</button>
+                                        <button class="btn1" type="submit" onClick = {login}>Sign In</button>
                                     </form>
                                 </main>
                             </div>
@@ -95,11 +92,7 @@ const Signup = () =>
                 </div>
             )
         }
-        if(this.state.status === 'registered')
-        {
-            return <CodeEditor/>
-        }
     }
     return checkStatus();
 }   
-export default Signup;
+export default Signin;

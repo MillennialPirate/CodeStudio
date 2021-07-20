@@ -8,12 +8,14 @@ import Signup from './components/signup';
 import {
   BrowserRouter as Router, Route
 } from "react-router-dom";
+import Signin from './components/signin';
 function App() {
   return (
     <Router>
       <div className="App">
         <Route exact path = '/' render = {() => <Home/>}></Route>
         <Route exact path = '/signup' render = {() => <Signup/>}></Route>
+        <Route exact path = '/signin' render = {() => <Signin/>}></Route>
       </div>
     </Router>
   );

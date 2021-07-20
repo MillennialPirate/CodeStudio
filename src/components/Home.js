@@ -1,19 +1,13 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import Img1 from './images/programmer.svg';
 import './styles.css';
-class Home extends React.Component
+const Home = () => 
 {
-    constructor(props)
+    const [status, setStatus] = useState('home');
+    const checkStatus = () =>
     {
-        super(props);
-        this.state = {
-            status : "home"
-        };
-    }
-    checkStatus()
-    {
-        if(this.state.status === 'home')
+        if(status === 'home')
         {
             return (
                 <div>
@@ -79,9 +73,6 @@ class Home extends React.Component
             )
         }
     }
-    render()
-    {
-        return this.checkStatus();
-    }
+    return checkStatus();
 }
 export default Home;
