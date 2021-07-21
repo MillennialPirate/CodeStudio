@@ -140,3 +140,13 @@ border-top-right-radius: 0;
 * {
 box-sizing: border-box;
 }
+iframe{
+    height: 50vh;
+    width : 100%;
+    background-color: white;
+}
+.headingSec{
+    padding-top : 2%;
+    text-align: center;
+    padding-bottom: 2%;
+}

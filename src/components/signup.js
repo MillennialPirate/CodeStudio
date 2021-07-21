@@ -4,11 +4,13 @@ import './styles.css';
 import {auth} from '../firebase/firebase';
 import { Link } from 'react-router-dom';
 import CodeEditor from './CodeEditor';
+import Profile from './profile';
 
 const Signup = () =>
 {
     const [status, setStatus] = useState('register');
     const [email, setEmail] = useState('');
+    const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [uid, setUid] = useState('');
     const onChangeInput = (e) =>
@@ -31,17 +33,19 @@ const Signup = () =>
         .then((user) => {
             console.log(user.user.uid);
             setUid(user.user.uid);
+            var name   = email.substring(0, email.lastIndexOf("@"));
+            setName(name);
+            setStatus('editor');
         })
         .catch((err) => {
             console.log(err);
             switch (err.code) {
             case "auth/email-already-in-use":
             case "auth/invalid-email":
-                this.setState({ emailError: err.message });
+                ;
                 window.alert("Try again : " + err.message);
                 break;
             case "auth/weak-password":
-                this.setState({ passwordError: err.message });
                 window.alert("Weak password");
                 break;
             default: console.log("Hello");
@@ -95,9 +99,9 @@ const Signup = () =>
                 </div>
             )
         }
-        if(this.state.status === 'registered')
+        if(status === 'editor')
         {
-            return <CodeEditor/>
+            return <Profile uid = {uid} name = {name}/>
         }
     }
     return checkStatus();
