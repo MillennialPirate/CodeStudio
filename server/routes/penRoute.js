@@ -13,6 +13,25 @@ router.route('/getPenByUser').post((req, res) => {
     .then((pens) => res.json(pens))
     .catch((err) => res.status(400).json('Error'));
 })
+//for updating the pens details 
+router.route('/editPen').post((req, res) => {
+    const penId = req.body.penId;
+    const html = req.body.html;
+    const css = req.body.css;
+    const js = req.body.js;
+    const topic = req.body.topic;
+    //the updation part 
+    const myQuery = {penId : penId};
+    const newVal = {$set : {
+        html : html, 
+        css : css, 
+        js : js, 
+        topic : topic
+    }}
+    Pen.updateOne(myQuery, newVal)
+    .then(() => {res.json('Updated succesfully')})
+    .catch((err) => {res.status(400).json(err)});
+})
 //adding pens to the database
 router.route('/addPen').post((req, res) => {
     const penId = req.body.penId;

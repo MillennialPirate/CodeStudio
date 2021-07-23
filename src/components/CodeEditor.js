@@ -2,12 +2,18 @@ import React, { useState, useEffect, useLayoutEffect } from 'react';
 import './styles.css';
 
 import Editor from './editor';
-const Code = (id) => {
-    const [html, setHtml] = useState('');
-    const [css, setCss] = useState('');
-    const [js, setJs] = useState('');
+import axios from 'axios';
+const Code = ({id1, html1, css1, js1, uid1, topic1}) => {
+    const [html, setHtml] = useState(String(html1));
+    const [css, setCss] = useState(String(css1));
+    const [js, setJs] = useState(String(js1));
+    const [id, setId] = useState(String(id1));
+    const [uid, setUid] = useState(String(uid1));
+    const [topic, setTopic] = useState(String(topic1));
     const [status, setStatus] = useState('all');
-    
+    useEffect(() => {
+        console.log(uid + ' ' + topic);
+    })
     const sourceDoc = `<html><style>${css}</style><body>${html}</body><script>${js}</script></html>`; // it has to be rendered
     //to display the html editor
     const changeToHtml = () => {
@@ -26,7 +32,18 @@ const Code = (id) => {
         setStatus('all');
     }
     const save = () => {
-        
+        var data = {
+            _id : id, 
+            topic: topic, 
+            html : html, 
+            css : css, 
+            js: js
+        };
+        console.log(data);
+        axios.post('http://localhost:5000/pens/editPen', data)
+        .then(res => {
+            console.log(res.data);
+        })
     }
     const checkStatus = (status) => {
         if (status === "html") {

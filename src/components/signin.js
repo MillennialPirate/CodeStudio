@@ -3,12 +3,15 @@ import Img1 from './images/img2.svg';
 import './styles.css';
 import {auth} from '../firebase/firebase';
 import { Link } from 'react-router-dom';
+import Profile from './profile';
+import CodeEditor from './CodeEditor';
 const Signin = () =>
 {
     const [status, setStatus] = useState('login');
     const [email ,setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [uid, setUid] = useState('');
+    const [name, setName] = useState('');
     const onChangeInput = (e) =>
     {
         const name = e.target.name;
@@ -33,6 +36,9 @@ const Signin = () =>
             console.log(user);
 
             setUid(user);
+            var name   = email.substring(0, email.lastIndexOf("@"));
+            setName(name);
+            setStatus('profile');
         })
         .catch((error) => {
             if (
@@ -91,6 +97,10 @@ const Signin = () =>
                     </div>
                 </div>
             )
+        }
+        if(status === 'profile')
+        {
+            return <Profile uid = {uid} name = {name}/>
         }
     }
     return checkStatus();
