@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const penSchema = {
-    penId : {
-        type : String, 
-        required: true
-    }, 
     topic : {
         type : String, 
         required: true

@@ -4,13 +4,13 @@ import './styles.css';
 import Editor from './editor';
 import axios from 'axios';
 import Profile from './profile';
-const Code = ({id1, html1, css1, js1, uid1, topic1, name}) => {
-    const [html, setHtml] = useState(String(html1));
-    const [css, setCss] = useState(String(css1));
-    const [js, setJs] = useState(String(js1));
-    const [id, setId] = useState(String(id1));
-    const [uid, setUid] = useState(String(uid1));
-    const [topic, setTopic] = useState(String(topic1));
+const Code = ({uid1, name}) => {
+    const [html, setHtml] = useState('');
+    const [css, setCss] = useState('');
+    const [js, setJs] = useState('');
+    const [id, setId] = useState('');
+    const [uid, setUid] = useState(uid1);
+    const [topic, setTopic] = useState('');
     const [status, setStatus] = useState('all');
     useEffect(() => {
         console.log(uid + ' ' + topic);
@@ -34,18 +34,21 @@ const Code = ({id1, html1, css1, js1, uid1, topic1, name}) => {
     }
     const save = () => {
         var data = {
-            _id : id, 
             topic: topic, 
             html : html, 
             css : css, 
-            js: js
+            js: js,
+            uid: uid
         };
         console.log(data);
-        axios.post('http://localhost:5000/pens/editPen', data)
+        axios.post('http://localhost:5000/pens/addPen', data)
         .then(res => {
             console.log(res.data);
             setStatus('back');
         })
+    }
+    const onTitleChange = (e) => {
+        setTopic(e.target.value);
     }
     const checkStatus = (status) => {
         if (status === "html") {
@@ -55,9 +58,11 @@ const Code = ({id1, html1, css1, js1, uid1, topic1, name}) => {
                         <div className='headingSec'>
                             <h1>{'{CodeStudio}'}</h1>
                         </div>
-                        
                     </div>
                     <div className='container'>
+                        <div class = 'inputDiv'>
+                            <input type = 'text' name = 'title' onChange = {onTitleChange}/>
+                        </div>
                         <div className='row'>
                             <div className='col-lg-3'>
                             <h4>File Explorer</h4>
@@ -99,6 +104,9 @@ const Code = ({id1, html1, css1, js1, uid1, topic1, name}) => {
                         </div>
                     </div>
                     <div className='container'>
+                    <div class = 'inputDiv'>
+                            <input type = 'text' name = 'title' onChange = {onTitleChange}/>
+                        </div>
                         <div className='row'>
                             <div className='col-lg-3'>
                                 <h4>File Explorer</h4>
@@ -140,6 +148,9 @@ const Code = ({id1, html1, css1, js1, uid1, topic1, name}) => {
                         </div>
                     </div>
                     <div className='container'>
+                    <div class = 'inputDiv'>
+                            <input type = 'text' name = 'title' onChange = {onTitleChange}/>
+                        </div>
                         <div className='row'>
                             <div className='col-lg-3'>
                                 <h4>File Explorer</h4>
@@ -181,6 +192,9 @@ const Code = ({id1, html1, css1, js1, uid1, topic1, name}) => {
                         </div>
                     </div>
                     <div className='container'>
+                    <div class = 'inputDiv'>
+                            <input type = 'text' name = 'title' onChange = {onTitleChange}/>
+                        </div>
                         <div className='row'>
                             <div className='col-lg-3'>
                                 <h4>File Explorer</h4>
@@ -230,8 +244,9 @@ const Code = ({id1, html1, css1, js1, uid1, topic1, name}) => {
         }
         if(status === 'back')
         {
-            return <Profile uid = {uid1} name = {name}/>
+            return <Profile uid = {uid} name = {name}/>
         }
+        
     }
     return checkStatus(status);
 }

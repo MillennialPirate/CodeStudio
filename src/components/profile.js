@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, {useState,useEffect} from 'react';
 import './styles.css';
 import CodeEditor from './CodeEditor';
+import CodeEditorBuild from './CodeEditorBuild';
 const Profile = ({uid, name}) => {
     const [status, setStatus] = useState('profile');
     const [pens, setPens] = useState([]);
@@ -87,11 +88,11 @@ const Profile = ({uid, name}) => {
                         </div>
                         <div className = 'container'>
                             <div style = {{textAlign:'center'}}>
-                                <p style = {{fontSize:'1.5rem', color: 'white'}}>Here are the pens that you have coded till now -> </p>
+                                <p style = {{fontSize:'1.5rem', color: 'white'}}>Here are the pens that you have coded till now</p>
                             </div>
                             <div class = 'container' style = {{textAlign:"center", color:'white'}}>
                                 {
-                                    pens.length === 0 ? <button class = 'btn1' onClick = {() => {setStatus('editor')}}>Create new pen</button>: pens.map((pen) => {
+                                    pens.length === 0 ? <div></div>: pens.map((pen) => {
                                         return (
                                         <div className = 'container'>
                                             <div className = 'row'>
@@ -106,11 +107,14 @@ const Profile = ({uid, name}) => {
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    
                                                 </div>
+                                                
                                             </div>
                                         </div>
                                     )})
                                 }
+                                <button class = 'btn1' onClick = {() => {setStatus('editor1')}}>Create new pen</button>
                             </div>
                         </div>
                     </div>
@@ -119,7 +123,11 @@ const Profile = ({uid, name}) => {
         }
         if(status === 'editor')
         {
-            return <CodeEditor html1 = {html} css1 = {css} js1 = {js} id1 = {id} uid1 = {uid} topic1 = {topic}/>
+            return <CodeEditor html1 = {html} css1 = {css} js1 = {js} id1 = {id} uid1 = {uid} topic1 = {topic} name = {name}/>
+        }
+        if(status === 'editor1')
+        {
+            return <CodeEditorBuild uid1 = {uid} name = {name}/>
         }
     }
     return checkStatus();
