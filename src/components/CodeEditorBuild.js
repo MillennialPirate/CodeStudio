@@ -40,6 +40,11 @@ const Code = ({uid1, name}) => {
             js: js,
             uid: uid
         };
+        if(topic === '')
+        {
+            window.alert('Please enter a title');
+            return;
+        }
         console.log(data);
         axios.post('http://localhost:5000/pens/addPen', data)
         .then(res => {
@@ -61,7 +66,7 @@ const Code = ({uid1, name}) => {
                     </div>
                     <div className='container'>
                         <div class = 'inputDiv'>
-                            <input type = 'text' name = 'title' onChange = {onTitleChange}/>
+                            <input placeholder = 'Title' type = 'text' name = 'title' onChange = {onTitleChange}/>
                         </div>
                         <div className='row'>
                             <div className='col-lg-3'>
@@ -105,7 +110,7 @@ const Code = ({uid1, name}) => {
                     </div>
                     <div className='container'>
                     <div class = 'inputDiv'>
-                            <input type = 'text' name = 'title' onChange = {onTitleChange}/>
+                            <input placeholder = 'Title' type = 'text' name = 'title' onChange = {onTitleChange}/>
                         </div>
                         <div className='row'>
                             <div className='col-lg-3'>
@@ -149,7 +154,7 @@ const Code = ({uid1, name}) => {
                     </div>
                     <div className='container'>
                     <div class = 'inputDiv'>
-                            <input type = 'text' name = 'title' onChange = {onTitleChange}/>
+                            <input placeholder = 'Title' type = 'text' name = 'title' onChange = {onTitleChange}/>
                         </div>
                         <div className='row'>
                             <div className='col-lg-3'>
@@ -193,7 +198,7 @@ const Code = ({uid1, name}) => {
                     </div>
                     <div className='container'>
                     <div class = 'inputDiv'>
-                            <input type = 'text' name = 'title' onChange = {onTitleChange}/>
+                            <input placeholder = 'Title' type = 'text' name = 'title' onChange = {onTitleChange}/>
                         </div>
                         <div className='row'>
                             <div className='col-lg-3'>

@@ -49,8 +49,8 @@ const Home = () =>
                                         <div className="item">
                                                 <span className="icon feature_box_col_two">
                                                 </span>
-                                                <h4 style={{ color: 'white' }}>Share your work!</h4>
-                                                <p>Become a part of the most active front-end community in the world by sharing work by sharing the links of your frontend studio!</p>
+                                                <h4 style={{ color: 'white' }}>Save your work!</h4>
+                                                <p>Don't lose your progress and motivation. Always save your work so that you can get back to it ASAP</p>
                                             </div>
                                         </div>
 

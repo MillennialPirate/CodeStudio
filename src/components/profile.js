@@ -3,6 +3,8 @@ import React, {useState,useEffect} from 'react';
 import './styles.css';
 import CodeEditor from './CodeEditor';
 import CodeEditorBuild from './CodeEditorBuild';
+import Home from './Home';
+import { Link } from 'react-router-dom';
 const Profile = ({uid, name}) => {
     const [status, setStatus] = useState('profile');
     const [pens, setPens] = useState([]);
@@ -79,17 +81,24 @@ const Profile = ({uid, name}) => {
                     <div className = 'container'>
                         <div className = 'heading'>
                             <h1>CodeStudio</h1>
+                            
+                        </div>
+                        <div style = {{textAlign:'center'}}>
+                        <Link to = '/'><button class = 'btn1' onClick = {(e) => {setStatus('logout')}}>Log out</button></Link>
                         </div>
                         <div style={{paddingTop:'2%'}}></div>
                         <div className = 'container'>
                             <div style = {{textAlign:"center"}}>
                                 <h3 style = {{color: 'white'}}>Welcome {name}, Ready, Set, Code!!</h3>
+                                
                             </div>
                         </div>
                         <div className = 'container'>
                             <div style = {{textAlign:'center'}}>
                                 <p style = {{fontSize:'1.5rem', color: 'white'}}>Here are the pens that you have coded till now</p>
+                                
                             </div>
+                            
                             <div class = 'container' style = {{textAlign:"center", color:'white'}}>
                                 {
                                     pens.length === 0 ? <div></div>: pens.map((pen) => {
@@ -116,6 +125,7 @@ const Profile = ({uid, name}) => {
                                 }
                                 <button class = 'btn1' onClick = {() => {setStatus('editor1')}}>Create new pen</button>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -128,6 +138,10 @@ const Profile = ({uid, name}) => {
         if(status === 'editor1')
         {
             return <CodeEditorBuild uid1 = {uid} name = {name}/>
+        }
+        if(status === 'logout')
+        {
+            return <Home/>
         }
     }
     return checkStatus();

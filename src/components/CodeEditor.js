@@ -58,6 +58,7 @@ const Code = ({id1, html1, css1, js1, uid1, topic1, name}) => {
                         
                     </div>
                     <div className='container'>
+                        <h2>{topic1}</h2>
                         <div className='row'>
                             <div className='col-lg-3'>
                             <h4>File Explorer</h4>
@@ -99,6 +100,7 @@ const Code = ({id1, html1, css1, js1, uid1, topic1, name}) => {
                         </div>
                     </div>
                     <div className='container'>
+                    <h2>{topic1}</h2>
                         <div className='row'>
                             <div className='col-lg-3'>
                                 <h4>File Explorer</h4>
@@ -140,6 +142,7 @@ const Code = ({id1, html1, css1, js1, uid1, topic1, name}) => {
                         </div>
                     </div>
                     <div className='container'>
+                    <h2>{topic1}</h2>
                         <div className='row'>
                             <div className='col-lg-3'>
                                 <h4>File Explorer</h4>
@@ -181,6 +184,7 @@ const Code = ({id1, html1, css1, js1, uid1, topic1, name}) => {
                         </div>
                     </div>
                     <div className='container'>
+                    <h2>{topic1}</h2>
                         <div className='row'>
                             <div className='col-lg-3'>
                                 <h4>File Explorer</h4>
