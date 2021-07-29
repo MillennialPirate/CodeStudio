@@ -49,6 +49,33 @@ const Profile = ({uid, name}) => {
         setTopic(topic)
         setStatus('editor');
     }
+    const deletePen = (e, id) => {
+        e.preventDefault();
+        console.log(id);
+        const data = {
+            _id : id
+        };
+        
+        axios.post('http://localhost:5000/pens/deletePen', data)
+        .then(res => {
+            if(res.data === 'Error')
+            {
+                console.log('Sorry something went wrong! Please try again after a few mins');
+                return;
+            }
+            //delete from the added list 
+            let i = 0;
+            for(i = 0; i < pens.length; i++)
+            {
+                if(pens[i]._id === id)
+                {
+                    pens.splice(i, 1);
+                    i--;
+                }
+            }
+            setStatus('deleted');
+        })
+    }
     const checkStatus = () => {
         if(status === 'profile')
         {
@@ -108,13 +135,80 @@ const Profile = ({uid, name}) => {
                                                 <div className = 'col-lg-12'>
                                                     <div class="main-container">
                                                         <div class="card-container">
-                                                            <div class="card card-1">
+                                                            <div class="card card-1" style = {{textAlign:'center'}}>
                                                                 <div class="card__icon"><i class="fas fa-bolt"></i></div>
                                                                 <p class="card__exit"><i class="fas fa-times"></i></p>
                                                                 <h2 class="card__title">{pen.topic}</h2>
-                                                                <p class="card__apply"><a href="#" onClick = {(e) => {openEditor(e, pen.html, pen.css, pen.js, pen._id, pen.topic)}}>Open <i class="fas fa-arrow-right"></i></a></p>
+                                                                <div>
+                                                                <p class="card__apply"><a href="" onClick = {(e) => {openEditor(e, pen.html, pen.css, pen.js, pen._id, pen.topic)}}>Open <i class="fas fa-arrow-right"></i></a></p>
+                                                                <p class="card__apply"><a href="" onClick = {(e) => {deletePen(e, pen._id)}}>Delete <i class="fas fa-arrow-right"></i></a></p>
+                                                                </div>
                                                             </div>
+                                                            
                                                         </div>
+                                                        
+                                                    </div>
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    )})
+                                }
+                                <button class = 'btn1' onClick = {() => {setStatus('editor1')}}>Create new pen</button>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+        if(status === 'deleted')
+        {
+            return (
+                <div>
+                    <div className = 'container'>
+                        <div className = 'heading'>
+                            <h1>CodeStudio</h1>
+                            
+                        </div>
+                        <div style = {{textAlign:'center'}}>
+                        <Link to = '/'><button class = 'btn1' onClick = {(e) => {setStatus('logout')}}>Log out</button></Link>
+                        </div>
+                        <div style={{paddingTop:'2%'}}></div>
+                        <div className = 'container'>
+                            <div style = {{textAlign:"center"}}>
+                                <h3 style = {{color: 'white'}}>Welcome {name}, Ready, Set, Code!!</h3>
+                                
+                            </div>
+                        </div>
+                        <div className = 'container'>
+                            <div style = {{textAlign:'center'}}>
+                                <p style = {{fontSize:'1.5rem', color: 'white'}}>Here are the pens that you have coded till now</p>
+                                
+                            </div>
+                            
+                            <div class = 'container' style = {{textAlign:"center", color:'white'}}>
+                                {
+                                    pens.length === 0 ? <div></div>: pens.map((pen) => {
+                                        return (
+                                        <div className = 'container'>
+                                            <div className = 'row'>
+                                                <div className = 'col-lg-12'>
+                                                    <div class="main-container">
+                                                        <div class="card-container">
+                                                            <div class="card card-1" style = {{textAlign:'center'}}>
+                                                                <div class="card__icon"><i class="fas fa-bolt"></i></div>
+                                                                <p class="card__exit"><i class="fas fa-times"></i></p>
+                                                                <h2 class="card__title">{pen.topic}</h2>
+                                                                <div>
+                                                                <p class="card__apply"><a href="" onClick = {(e) => {openEditor(e, pen.html, pen.css, pen.js, pen._id, pen.topic)}}>Open <i class="fas fa-arrow-right"></i></a></p>
+                                                                <p class="card__apply"><a href="" onClick = {(e) => {deletePen(e, pen._id)}}>Delete <i class="fas fa-arrow-right"></i></a></p>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        
                                                     </div>
                                                     
                                                 </div>

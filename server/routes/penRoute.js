@@ -1,10 +1,20 @@
 const router = require('express').Router();
 let Pen = require('../models/penModel');
 //displaying all the pens 
-router.route('/getPens').get((req, res) => {
-    Pen.find()
-    .then((pens) => res.json(pens))
-    .catch((err) => res.status(400).json('Error'));
+// router.route('/getPens').get((req, res) => {
+//     Pen.find()
+//     .then((pens) => res.json(pens))
+//     .catch((err) => res.status(400).json('Error'));
+// })
+
+
+//deleting pens 
+router.route('/deletePen').post((req, res) => {
+    const penId = req.body._id; 
+    const myQuery = {_id : penId};
+    Pen.deleteOne(myQuery)
+    .then(() => {res.json('Deleted successfully')})
+    .catch(() => {res.json('Error')});
 })
 //displaying pens according to the user id 
 router.route('/getPenByUser').post((req, res) => {
